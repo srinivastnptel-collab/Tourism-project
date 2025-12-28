@@ -46,23 +46,22 @@ print(f"Model saved at: {model_path}")
 
 # 6. Upload model to Hugging Face Hub
 hf_token = os.getenv("HF_TOKEN")
-
 if hf_token is None:
     raise ValueError("HF_TOKEN environment variable is not set. Please configure it in GitHub Secrets.")
 
-repo_id = "Srinivas1969/Tourism-Project"  # change if needed
-
+repo_id = "Srinivas1969/Tourism-Project"
 api = HfApi()
 api.create_repo(repo_id=repo_id, token=hf_token, exist_ok=True)
 
 local_hf_dir = "hf_repo"
 repo = Repository(local_dir=local_hf_dir, clone_from=repo_id, use_auth_token=hf_token)
-
 os.makedirs(local_hf_dir, exist_ok=True)
 
+# Save model inside repo
 hf_model_path = os.path.join(local_hf_dir, "rf_model.joblib")
 joblib.dump(model, hf_model_path)
 
+# Add README
 readme_path = os.path.join(local_hf_dir, "README.md")
 with open(readme_path, "w") as f:
     f.write(
@@ -71,5 +70,11 @@ with open(readme_path, "w") as f:
         f"Validation Accuracy: {acc:.4f}\n"
     )
 
+# Add requirements.txt
+with open(os.path.join(local_hf_dir, "requirements.txt"), "w") as f:
+    f.write("scikit-learn\njoblib\npandas\n")
+
+# Stage all files and push
+repo.git_add()
 repo.push_to_hub(commit_message="Upload trained tourism model")
 print("✅ Model uploaded to Hugging Face Hub.")
