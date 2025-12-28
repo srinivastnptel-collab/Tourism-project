@@ -16,12 +16,13 @@ train_df = pd.read_csv(train_path)
 valid_df = pd.read_csv(valid_path)
 
 # 2. Split features and target
-target_col = "label"  # change if your target column has a different name
 
-X_train = train_df.drop(columns=[target_col])
+target_col = "ProdTaken"
+
+X_train = train_df.drop(columns=[target_col, "Unnamed: 0"])
 y_train = train_df[target_col]
 
-X_valid = valid_df.drop(columns=[target_col])
+X_valid = valid_df.drop(columns=[target_col, "Unnamed: 0"])
 y_valid = valid_df[target_col]
 
 print(f"Train shape: {X_train.shape}, Valid shape: {X_valid.shape}")
