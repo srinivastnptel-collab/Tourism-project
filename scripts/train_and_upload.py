@@ -55,7 +55,6 @@ api.create_repo(repo_id=repo_id, token=hf_token, exist_ok=True)
 
 local_hf_dir = "hf_repo"
 repo = Repository(local_dir=local_hf_dir, clone_from=repo_id, use_auth_token=hf_token)
-os.makedirs(local_hf_dir, exist_ok=True)
 
 # Save model inside repo
 hf_model_path = os.path.join(local_hf_dir, "rf_model.joblib")
