@@ -49,7 +49,7 @@ hf_token = os.getenv("HF_TOKEN")
 if hf_token is None:
     raise ValueError("HF_TOKEN environment variable is not set. Please configure it in GitHub Secrets.")
 
-repo_id = "Srinivas1969/Tourism-Project"
+repo_id = "Srinivas1969/tourism-rf-model"
 api = HfApi()
 api.create_repo(repo_id=repo_id, token=hf_token, exist_ok=True)
 
