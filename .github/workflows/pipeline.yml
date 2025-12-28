@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install pandas numpy scikit-learn joblib huggingface_hub datasets mlflow
+        pip install -r mlops/deployment/requirements.txt
 
     - name: Run training and upload
       env:
